@@ -6,7 +6,7 @@ A **cloud-based full-stack web application** designed to streamline and automate
 
 ## 🚀 Features
 
-### 👤 User Side (طلاب / Faculty)
+### 👤 User Side (Students / Faculty)
 
 * 📅 Book available resources (rooms, labs, equipment)
 * ⏱️ Real-time availability checking
