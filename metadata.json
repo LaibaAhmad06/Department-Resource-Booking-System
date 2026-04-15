@@ -1,0 +1,5 @@
+{
+  "name": "ITU Department Resource Booking System",
+  "description": "A comprehensive resource management and booking system designed for university departments. Features role-based access for Admins and Users, conflict prevention, real-time approval workflows, and an academic-grade UI. Built with React, Tailwind CSS, and a simulated backend architecture ready for AWS deployment.",
+  "requestFramePermissions": []
+}

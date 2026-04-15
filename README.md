@@ -1,191 +1,120 @@
-# 📘 Department Resource Booking System
+# Department Resource Booking System
 
-A **cloud-based full-stack web application** designed to streamline and automate the booking of departmental resources such as classrooms, labs, and equipment. The system ensures efficient scheduling, prevents conflicts, and provides a seamless experience for both users and administrators.
+A full-stack web application designed to automate the reservation of institutional assets, deployed on Amazon Web Services (AWS) using a high-performance NoSQL architecture.
 
----
+## 🚀 Overview
 
-## 🚀 Features
+This system provides a digital solution to the common administrative challenges of manual resource booking. It streamlines the scheduling of classrooms, labs, and equipment, ensuring zero conflicts and real-time visibility for all department members.
 
-### 👤 User Side (Students / Faculty)
+## 🛠 Tech Stack
 
-* 📅 Book available resources (rooms, labs, equipment)
-* ⏱️ Real-time availability checking
-* ❌ Conflict-free scheduling system
-* 📋 View booking history
-* 🔔 Instant booking confirmation
+- **Frontend:** React.js (hosted on EC2)  
+- **Backend:** Node.js & Express.js (hosted on EC2)  
+- **Database:** Amazon DynamoDB (NoSQL)  
+- **Process Management:** PM2 (Process Manager 2)  
+- **Environment:** TypeScript (using ts-node)
 
-### 🛠️ Admin Side
+## 🏗 Deployment Architecture
 
-* 🧑‍💼 Manage users and roles
-* 🏫 Add, update, or remove resources
-* 📊 Monitor all bookings
-* ⚙️ Approve or reject booking requests
-* 📈 Maintain system integrity and availability
+The system is optimized for a cloud-native environment with the following configuration:
 
----
+- **Unified EC2 Hosting:**  
+  Both the React frontend (Port 3000) and the Express backend (Port 5000) are hosted on a single Amazon EC2 instance, providing cost-efficiency and simplified network management.
 
-## 🏗️ System Architecture
+- **DynamoDB Integration:**  
+  Unlike traditional relational databases, Amazon DynamoDB is used for rapid data retrieval, ensuring the system can handle concurrent booking requests with minimal latency.
 
-This project follows a **cloud-native architecture** deployed on AWS:
+- **Security & Access Control:**  
+  Access is restricted via AWS Security Groups allowing inbound traffic only on essential ports (3000, 5000, and 22 for SSH).
 
-* **Frontend:** React.js
-* **Backend:** Node.js (Express.js)
-* **Database:** Amazon DynamoDB (NoSQL)
-* **Server Hosting:** AWS EC2
-* **Process Manager:** PM2
+- **PM2 Resilience:**  
+  PM2 is used to keep both frontend and backend services alive, ensuring automatic restarts in case of system failures or instance reboots.
 
-### 📌 Key Design Highlights
+## ✨ Key Features
 
-* Scalable NoSQL database design using DynamoDB
-* RESTful API architecture
-* Separation of concerns (Frontend & Backend)
-* Optimized for real-time operations
+- **Role-Based Access Control:**  
+  Separate dashboards for Admins (resource management) and Users (resource booking).
 
----
+- **Domain Restriction:**  
+  Secure registration and login restricted exclusively to `@itu.edu.pk` email addresses.
 
-## 📂 Project Structure
-
-```
-AWS_project_SDC/
-│
-├── client/                 # React Frontend
-│   ├── src/
-│   └── public/
-│
-├── server/                 # Node.js Backend
-│   ├── routes/
-│   ├── controllers/
-│   ├── models/
-│   └── config/
-│
-├── docs/                   # Architecture diagrams / documentation
-├── package.json
-└── README.md
-```
-
----
-
-## ⚙️ Installation & Setup
-
-### 🔧 Prerequisites
-
-* Node.js (v14+ recommended)
-* npm or yarn
-* AWS Account (for DynamoDB & EC2)
-
----
-
-### 🖥️ After Cloning Repository
+- **Conflict Detection:**  
+  Intelligent backend logic prevents multiple users from booking the same resource for overlapping time slots.
 
 
-### 📦 Install Dependencies
+# 🚀 Running on EC2
 
-#### For Backend:
+### Backend Setup
 
-```bash
-cd server
-npm install
-```
+Navigate to the backend directory:
 
-#### For Frontend:
+```cd ~/AWS_project_SDC/backend ```
 
-```bash
-cd client
-npm install
-```
+Start the server using PM2 with the ESM loader:
 
----
 
-### ▶️ Run the Application
+```pm2 start "npx tsx server.ts" --name "backend"```
 
-#### Start Backend:
 
-```bash
-cd server
-npm start
-```
 
-#### Start Frontend:
+### Frontend Setup
 
-```bash
-cd client
-npm start
-```
+Navigate to the frontend directory:
 
----
+```cd ~/AWS_project_SDC/frontend```
 
-## ☁️ Deployment (AWS)
+Start the Vite development server:
 
-### 🔹 EC2 Setup
+```pm2 start "npm run dev -- --host" --name "frontend"```
 
-* Launch EC2 instance (Ubuntu recommended)
-* Install Node.js & npm
-* Clone repository on EC2
-* Run backend using PM2:
 
-```bash
-pm install -g pm2
-pm start
-pm2 start server.js
-```
 
----
+## Testing Strategy and Verification
 
-### 🔹 DynamoDB Configuration
+To test both the backend and frontend, we used a combination of manual and automated methods to ensure that both servers are functioning correctly and are accessible over the internet.
 
-* Create tables for:
 
-  * Users
-  * Resources
-  * Bookings
-* Configure AWS SDK in backend
+- **1. Backend Testing (API Verification)**  
 
----
+Multiple stages were used to test the backend:
 
-## 🔐 Environment Variables
+Process Monitoring:
+The pm2 list command was used to verify that the backend service is in an Online state and that its memory usage average (e.g., 90.4 MB) remains within normal limits.
 
-Create a `.env` file in the backend:
+Local Connectivity:
+The backend server’s ability to accept requests was tested by running
+curl ```http://localhost:5000/api/auth/login```
+in the terminal.
 
-```
-PORT=5000
-AWS_ACCESS_KEY_ID=your_key
-AWS_SECRET_ACCESS_KEY=your_secret
-AWS_REGION=your_region
-DYNAMODB_TABLE=your_table_name
-```
+Public Access:
+Direct access was tested by entering the public IP in the browser
+```(http://3.213.38.136:5000/api/resources)```
+to confirm that the AWS Security Group allows external connections.
 
----
+Log Analysis:
+Runtime errors (such as ```ERR_UNKNOWN_FILE_EXTENSION```) were identified and resolved using pm2 logs backend.
 
-## 🧠 Key Concepts Used
 
-* Full Stack Development
-* REST API Design
-* Cloud Computing (AWS EC2, DynamoDB)
-* NoSQL Database Modeling
-* Authentication & Authorization
-* Real-time Data Handling
+- **2. Frontend Testing (UI & Integration)**  
 
----
+The following steps were taken to test the frontend:
 
-## 📌 Future Improvements
+Deployment Check:
+The pm2 list command was used to confirm that the frontend server is online and running on port 3000.
 
-* 🔐 Implement JWT-based authentication
-* 📱 Mobile responsiveness improvements
-* 📊 Advanced analytics dashboard
-* 🔔 Email/SMS notifications
-* 🌐 Multi-department scalability
+Service Binding:
+The backend IP address (3.213.38.136) was updated in ```frontend/src/services/api.ts``` to ensure proper communication between the frontend and backend.
 
----
+Browser Console:
+The browser’s Inspect Element → Console tab was used to track errors such as ```net::ERR_CONNECTION_REFUSED```, helping identify blocked or failed connections.
 
-## 🤝 Contributing
 
-Contributions are welcome! Feel free to fork the repository and submit a pull request.
+- **3. Integration & Security Testing**  
 
----
+To test both systems together:
 
-## 👩‍💻 Author
+AWS Security Groups:
+Inbound rules for both launch-wizard-1 and ITU-Security-Group were reviewed to ensure that traffic is allowed on ports 3000 (Frontend) and 5000 (Backend).
 
-**Laiba Ahmad**  & **Turab Hashmi**
-Software Engineering Students @ ITU Lahore
-
----
+End-to-End Login Testing:
+Login credentials were entered into the live application to verify the authentication flow, including logic in auth.ts.

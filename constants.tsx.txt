@@ -1,0 +1,192 @@
+
+import React from 'react';
+import { 
+  Beaker, 
+  BookOpen, 
+  Users, 
+  Monitor, 
+  Cpu, 
+  Video, 
+  Laptop, 
+  Printer, 
+  Microscope,
+  ShieldCheck,
+  Radio,
+  Gamepad2,
+  HardDrive,
+  Lightbulb,
+  Building
+} from 'lucide-react';
+import { ResourceType, Resource, TimeSlot } from './types';
+
+export const EMAIL_DOMAIN = '@itu.edu.pk';
+
+export const TIME_SLOTS: TimeSlot[] = [
+  { id: '1', label: '09:00 AM - 10:30 AM' },
+  { id: '2', label: '10:45 AM - 12:15 PM' },
+  { id: '3', label: '12:30 PM - 02:00 PM' },
+  { id: '4', label: '02:15 PM - 03:45 PM' },
+  { id: '5', label: '04:00 PM - 05:30 PM' },
+  { id: '6', label: '05:45 PM - 07:15 PM' },
+];
+
+export const INITIAL_RESOURCES: Resource[] = [
+  {
+    id: 'res-1',
+    name: 'AI & Robotics Lab',
+    type: ResourceType.LAB,
+    capacity: 20,
+    location: 'Floor 3, Block A',
+    description: 'Specialized lab for neural networks and hardware prototyping.',
+    availabilityHours: '09:00 - 18:00',
+    iconName: 'Cpu'
+  },
+  {
+    id: 'res-2',
+    name: 'Cloud Computing Center',
+    type: ResourceType.LAB,
+    capacity: 30,
+    location: 'Floor 4, Block B',
+    description: 'Equipped with high-performance clusters and dev environments.',
+    availabilityHours: '08:00 - 20:00',
+    iconName: 'Monitor'
+  },
+  {
+    id: 'res-3',
+    name: 'Main Auditorium',
+    type: ResourceType.CLASSROOM,
+    capacity: 250,
+    location: 'Ground Floor',
+    description: 'Large venue for departmental seminars and keynotes.',
+    availabilityHours: '08:00 - 17:00',
+    iconName: 'Users'
+  },
+  {
+    id: 'res-4',
+    name: 'Board Meeting Room',
+    type: ResourceType.MEETING_ROOM,
+    capacity: 12,
+    location: 'Floor 5, Admin Block',
+    description: 'Executive meeting room with video conferencing.',
+    availabilityHours: '09:00 - 17:00',
+    iconName: 'Building'
+  },
+  {
+    id: 'res-5',
+    name: 'High-End GPU Workstation 01',
+    type: ResourceType.EQUIPMENT,
+    capacity: 1,
+    location: 'AI Lab',
+    description: 'NVIDIA RTX 4090 station for deep learning training.',
+    availabilityHours: '24/7',
+    iconName: 'HardDrive'
+  },
+  {
+    id: 'res-6',
+    name: 'Cyber Security Ops Room',
+    type: ResourceType.LAB,
+    capacity: 15,
+    location: 'Floor 2, Block C',
+    description: 'Secure environment for penetration testing and forensics.',
+    availabilityHours: '09:00 - 18:00',
+    iconName: 'ShieldCheck'
+  },
+  {
+    id: 'res-7',
+    name: 'Smart Classroom 101',
+    type: ResourceType.CLASSROOM,
+    capacity: 45,
+    location: 'Floor 1, Block A',
+    description: 'Interactive displays and collaborative seating.',
+    availabilityHours: '08:00 - 18:00',
+    iconName: 'BookOpen'
+  },
+  {
+    id: 'res-8',
+    name: 'Multimedia Design Studio',
+    type: ResourceType.LAB,
+    capacity: 20,
+    location: 'Floor 3, Block B',
+    description: 'Equipped with drawing tablets and creative software suites.',
+    availabilityHours: '09:00 - 17:00',
+    iconName: 'Laptop'
+  },
+  {
+    id: 'res-9',
+    name: 'IoT Innovation Hub',
+    type: ResourceType.LAB,
+    capacity: 18,
+    location: 'Floor 2, Block B',
+    description: 'Workbench space for Arduino, Raspberry Pi, and sensors.',
+    availabilityHours: '09:00 - 18:00',
+    iconName: 'Radio'
+  },
+  {
+    id: 'res-10',
+    name: 'Physics & Optics Lab',
+    type: ResourceType.LAB,
+    capacity: 25,
+    location: 'Lower Ground',
+    description: 'Darkroom facilities and laser testing benches.',
+    availabilityHours: '08:00 - 16:00',
+    iconName: 'Lightbulb'
+  },
+  {
+    id: 'res-11',
+    name: '3D Printer Delta 4',
+    type: ResourceType.EQUIPMENT,
+    capacity: 1,
+    location: 'Maker Space',
+    description: 'High-precision filament printer for rapid prototyping.',
+    availabilityHours: '09:00 - 18:00',
+    iconName: 'Printer'
+  },
+  {
+    id: 'res-12',
+    name: 'VR / AR Testing Pod',
+    type: ResourceType.EQUIPMENT,
+    capacity: 2,
+    location: 'Block A, Floor 3',
+    description: 'HTC Vive and Meta Quest 3 development setups.',
+    availabilityHours: '10:00 - 16:00',
+    iconName: 'Gamepad2'
+  },
+  {
+    id: 'res-13',
+    name: 'Seminar Hall 2',
+    type: ResourceType.CLASSROOM,
+    capacity: 60,
+    location: 'Floor 1, Block C',
+    description: 'Ideal for workshops and medium-sized presentations.',
+    availabilityHours: '08:00 - 18:00',
+    iconName: 'Video'
+  },
+  {
+    id: 'res-14',
+    name: 'Microscopy Suite',
+    type: ResourceType.LAB,
+    capacity: 8,
+    location: 'Basement Lab Area',
+    description: 'Advanced electron and fluorescent microscopes.',
+    availabilityHours: '09:00 - 15:00',
+    iconName: 'Microscope'
+  },
+  {
+    id: 'res-15',
+    name: 'Digital Electronics Lab',
+    type: ResourceType.LAB,
+    capacity: 35,
+    location: 'Floor 2, Block A',
+    description: 'Oscilloscopes, logic analyzers, and breadboarding stations.',
+    availabilityHours: '08:00 - 17:00',
+    iconName: 'Beaker'
+  },
+];
+
+export const getIcon = (name: string, size = 20, className = "") => {
+  const icons: Record<string, any> = {
+    Beaker, BookOpen, Users, Monitor, Cpu, Video, Laptop, Printer, Microscope, ShieldCheck, Radio, Gamepad2, HardDrive, Lightbulb, Building
+  };
+  const IconComponent = icons[name] || BookOpen;
+  return <IconComponent size={size} className={className} />;
+};

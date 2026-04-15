@@ -1,0 +1,57 @@
+
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  USER = 'USER'
+}
+
+export enum BookingStatus {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
+  CANCELLED = 'CANCELLED'
+}
+
+export enum ResourceType {
+  LAB = 'LAB',
+  CLASSROOM = 'CLASSROOM',
+  MEETING_ROOM = 'MEETING_ROOM',
+  EQUIPMENT = 'EQUIPMENT'
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface Resource {
+  id: string;
+  name: string;
+  type: ResourceType;
+  capacity: number;
+  location: string;
+  description: string;
+  availabilityHours: string;
+  imageUrl?: string;
+  iconName: string;
+}
+
+export interface Booking {
+  id: string;
+  userId: string;
+  userName: string;
+  resourceId: string;
+  resourceName: string;
+  date: string;
+  slot: string;
+  status: BookingStatus;
+  createdAt: string;
+}
+
+export interface TimeSlot {
+  id: string;
+  label: string;
+}
